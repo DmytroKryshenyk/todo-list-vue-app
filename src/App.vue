@@ -15,3 +15,11 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+#app {
+  text-align: center;
+  padding-top: 100px;
+  background: $brand-color-3;
+  height: 100vh; 
+}
+</style>
