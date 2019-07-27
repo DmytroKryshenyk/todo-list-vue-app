@@ -5,10 +5,16 @@
 
       <form class="todoList__actions">
         <label class="todoList__done">
-          <input class="todoList__done-input" type="checkbox" name="isItDone" value="done" />
+          <input class="todoList__done-input" v-model="item.done" type="checkbox" />
           <span class="todoList__done-span"></span>
         </label>
-        <button class="todoList__remove" type="button" aria-label="Delete" title="Delete"></button>
+        <button
+          class="todoList__remove"
+          @click="emitRemoveItem(item.label)"
+          type="button"
+          aria-label="Delete"
+          title="Delete"
+        ></button>
       </form>
     </li>
   </ul>
@@ -17,13 +23,19 @@
 <script>
 export default {
   name: "ToDoList",
-  props: ["todo"]
+  props: ["todo"],
+  methods: {
+    emitRemoveItem(label) {
+      this.$emit("removeItemEvent", label);
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 .todoList__list {
   padding: 0;
+  margin-bottom: 1rem;
 }
 
 .todoList__item {
@@ -34,6 +46,7 @@ export default {
 
   margin-bottom: 0.1rem;
   position: relative;
+  z-index: 1;
 
   &::before {
     content: "";
@@ -43,7 +56,8 @@ export default {
     transform: translateX(-50%);
     width: calc(100% + 2 * #{$main-padding});
     height: 100%;
-    background: rgba($text-color, 0.15);
+    background: rgba(255, 255, 255, 0.15);
+    z-index: -1;
   }
 }
 
@@ -65,6 +79,7 @@ export default {
 
 .todoList__actions {
   display: inline-block;
+  margin-left: 1rem;
 }
 
 .todoList__done,

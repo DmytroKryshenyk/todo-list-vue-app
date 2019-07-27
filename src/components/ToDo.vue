@@ -1,10 +1,10 @@
 <template>
   <article class="todoList">
     <h3 class="todoList__title">Todo List</h3>
-    <p class="todoList__subtitle">Today i need To:</p>
-    <ToDoList :todo="todo" />
-    <ToDoToggleButton />
-    <ToDoForm />
+    <p class="todoList__subtitle">Things I have to get done today:</p>
+    <ToDoList :todo="sortedTodo" @removeItemEvent="removeItem" />
+    <ToDoToggleButton @sortButtonChanged="changeSortButtonStatus" />
+    <ToDoForm @newItem="addNewTodo" />
   </article>
 </template>
 
@@ -23,13 +23,48 @@ export default {
   data() {
     return {
       todo: [
-        { id: 1, label: "GO to the GYM ", done: true },
-        { id: 2, label: "Read New Book", done: false },
-        { id: 3, label: "Meditation", done: false }
-      ]
+        { label: "Meditation", done: true },
+        { label: "Wash car", done: true },
+        { label: "Read New Book", done: false },
+        { label: "Learn Vue.js", done: false },
+        { label: "Buy eggs", done: false }
+      ],
+      sortedTodo: [],
+      isSortButtonActive: false
     };
   },
-  methods: {}
+  beforeMount() {
+    this.updateSortedTodo();
+  },
+  methods: {
+    removeItem(label) {
+      const index = this.todo.findIndex(current => current.label === label);
+      this.todo.splice(index, 1);
+    },
+
+    addNewTodo(newTodo) {
+      const newTodoObject = {
+        label: newTodo[0].toUpperCase() + newTodo.substring(1),
+        done: false
+      };
+      this.todo.unshift(newTodoObject);
+    },
+
+    changeSortButtonStatus(status) {
+      this.isSortButtonActive = status;
+      this.updateSortedTodo();
+    },
+
+    updateSortedTodo() {
+      if (this.isSortButtonActive) {
+        let doneList = this.todo.filter(element => element.done);
+        let notDoneList = this.todo.filter(element => !element.done);
+        this.sortedTodo = [...notDoneList, ...doneList];
+      } else {
+        this.sortedTodo = this.todo;
+      }
+    }
+  }
 };
 </script>
 
@@ -43,7 +78,7 @@ export default {
   color: $text-color;
   background: $brand-color-1;
   text-align: left;
-  box-shadow: -1rem -1rem 0px 0px rgba(0,0,0,0.1);
+  box-shadow: -1rem -1rem 0px 0px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 
@@ -58,4 +93,3 @@ export default {
   text-decoration: underline;
 }
 </style>
-
