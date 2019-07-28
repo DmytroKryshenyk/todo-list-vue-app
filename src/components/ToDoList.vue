@@ -1,8 +1,7 @@
-<template>
-  <ul class="todoList__list">
-    <li class="todoList__item" v-for="item in todo" v-bind:key="item.id">
+<template v-if="todo.length">
+  <transition-group name="todoList__list" class="todoList__list" tag="ul">
+    <li class="todoList__item" v-for="item in todo" v-bind:key="item">
       <span class="todoList__text" :class="{'todoList__text--done': item.done }">{{item.label}}</span>
-
       <form class="todoList__actions">
         <label class="todoList__done">
           <input class="todoList__done-input" v-model="item.done" type="checkbox" />
@@ -12,12 +11,11 @@
           class="todoList__remove"
           @click="emitRemoveItem(item.label)"
           type="button"
-          aria-label="Delete"
-          title="Delete"
+          title="Delete item"
         ></button>
       </form>
     </li>
-  </ul>
+  </transition-group>
 </template> 
 
 <script>
@@ -43,7 +41,6 @@ export default {
   justify-content: space-between;
   padding-top: 0.7rem;
   padding-bottom: 0.7rem;
-
   margin-bottom: 0.1rem;
   position: relative;
   z-index: 1;
@@ -111,7 +108,7 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  border: 0.1rem solid #ffffff;
+  border: 0.1rem solid $actions-items-color;
   border-radius: 20%;
 }
 
@@ -121,7 +118,10 @@ export default {
   height: 1rem;
   width: 1rem;
   background: url(../assets/trash-solid.svg) no-repeat;
-  z-index: 2;
+}
+
+.todoList__list-move {
+  transition: transform 1s;
 }
 </style>
 

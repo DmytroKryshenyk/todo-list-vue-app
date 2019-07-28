@@ -1,12 +1,18 @@
 <template>
   <div class="toggleButton">
     <label class="toggleButton__label">
-      <span class="toggleButton__text">Move done items at the end?</span>
-      <input class="toggleButton__input" type="checkbox" v-model="isSortButtonActive" @change="sortButtonChanged"/>
+      <span class="toggleButton__text">Move completed items to the end</span>
+      <input
+        class="toggleButton__input"
+        type="checkbox"
+        v-model="isSortButtonActive"
+        @change="sortButtonChanged"
+      />
       <span class="toggleButton__box"></span>
     </label>
   </div>
 </template>
+
 <script>
 export default {
   name: "ToDoToggleButton",
@@ -17,7 +23,7 @@ export default {
   },
   methods: {
     sortButtonChanged() {
-      this.$emit('sortButtonChanged', this.isSortButtonActive)
+      this.$emit("sortButtonChanged", this.isSortButtonActive);
     }
   }
 };

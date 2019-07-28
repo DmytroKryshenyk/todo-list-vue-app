@@ -1,7 +1,14 @@
 <template>
   <form class="todoList__form" @submit.prevent="submited">
-    <label class="todoList__label" for="newitem">Add to the todo list</label>
-    <input class="todoList__input" v-model="newItem" type="text" name="newitem" id="newitem" />
+    <label class="todoList__label" for="newitem">Add a new task</label>
+    <input
+      class="todoList__input"
+      v-model="newItem"
+      type="text"
+      name="newitem"
+      id="newitem"
+      placeholder="buy bread"
+    />
     <button class="todoList__submit" type="submit">Add item</button>
   </form>
 </template>
@@ -36,7 +43,11 @@ export default {
   height: 3rem;
   flex: 1 1;
   padding: 0.5rem;
-  color: #7c7c7c;
+  color: $form-text-color;
+
+  &::placeholder {
+    color: lighten($form-text-color, 20%);
+  }
 }
 
 .todoList__submit {

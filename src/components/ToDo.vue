@@ -1,9 +1,10 @@
 <template>
   <article class="todoList">
-    <h3 class="todoList__title">Todo List</h3>
+    <h3 class="todoList__title">To Do List</h3>
     <p class="todoList__subtitle">Things I have to get done today:</p>
-    <ToDoList :todo="sortedTodo" @removeItemEvent="removeItem" />
-    <ToDoToggleButton @sortButtonChanged="changeSortButtonStatus" />
+    <ToDoList :todo="todoByStatus" @removeItemEvent="removeItem" />
+    <p v-if="!todo.length" class="todoList__empty">Your todo list is empty.</p>
+    <ToDoToggleButton v-if="todo.length" @sortButtonChanged="changeSortButtonStatus" />
     <ToDoForm @newItem="addNewTodo" />
   </article>
 </template>
@@ -25,16 +26,11 @@ export default {
       todo: [
         { label: "Meditation", done: true },
         { label: "Wash car", done: true },
-        { label: "Read New Book", done: false },
         { label: "Learn Vue.js", done: false },
         { label: "Buy eggs", done: false }
       ],
-      sortedTodo: [],
       isSortButtonActive: false
     };
-  },
-  beforeMount() {
-    this.updateSortedTodo();
   },
   methods: {
     removeItem(label) {
@@ -52,34 +48,34 @@ export default {
 
     changeSortButtonStatus(status) {
       this.isSortButtonActive = status;
-      this.updateSortedTodo();
-    },
-
-    updateSortedTodo() {
-      if (this.isSortButtonActive) {
-        let doneList = this.todo.filter(element => element.done);
-        let notDoneList = this.todo.filter(element => !element.done);
-        this.sortedTodo = [...notDoneList, ...doneList];
+    }
+  },
+  computed: {
+    todoByStatus: function() {
+      if (!this.isSortButtonActive) {
+        return this.todo;
       } else {
-        this.sortedTodo = this.todo;
+        const doneList = this.todo.filter(element => element.done);
+        const notDoneList = this.todo.filter(element => !element.done);
+        return [...notDoneList, ...doneList];
       }
     }
   }
 };
 </script>
 
-
 <style lang="scss" scoped>
 .todoList {
   display: inline-block;
   padding: $main-padding;
   padding-top: $main-top-padding;
-  font-family: "Neucha", cursive;
+  font-family: $main-font;
   color: $text-color;
   background: $brand-color-1;
   text-align: left;
   box-shadow: -1rem -1rem 0px 0px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  min-width: $todo-min-width;
 }
 
 .todoList__title {
@@ -91,5 +87,12 @@ export default {
   font-size: 1rem;
   margin-bottom: 0.8rem;
   text-decoration: underline;
+}
+
+.todoList__empty {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+  font-style: italic;
 }
 </style>

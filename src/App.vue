@@ -4,7 +4,6 @@
   </div>
 </template>
 
-
 <script>
 import ToDo from "./components/ToDo.vue";
 
@@ -15,11 +14,12 @@ export default {
   }
 };
 </script>
+
 <style lang="scss">
 #app {
   text-align: center;
   padding-top: 100px;
   background: $brand-color-3;
-  height: 100vh; 
+  height: 100vh;
 }
 </style>

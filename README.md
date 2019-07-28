@@ -1,4 +1,10 @@
-# todo-list-vue-app
+# To-Do List App
+```
+## Technologies & techniques used
+* Vue.js, Vue CLI 3, JS, ES6 Modules,
+* HTML5, CSS3, SASS(scss), BEM,
+* NPM, Webpack, Babel
+
 
 ## Project setup
 ```
@@ -15,15 +21,13 @@ npm run serve
 npm run build
 ```
 
-### Run your tests
-```
-npm run test
-```
-
 ### Lints and fixes files
 ```
 npm run lint
-```
+
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+### [Kryshenyk Dmytro Porfolio](https://dmytrokryshenyk.github.io/Portfolio/build/)
