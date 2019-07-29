@@ -18,11 +18,10 @@ export default {
 <style lang="scss">
 #app {
   text-align: center;
-  padding-top: 100px;
   background: $brand-color-3;
-  height: 100vh; 
+  min-height: 100vh;
   min-width: $todo-min-width;
-
-  
+  padding-top: 100px;
+  padding-bottom: 100px;
 }
 </style>
