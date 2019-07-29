@@ -77,6 +77,7 @@ export default {
 .todoList__actions {
   display: inline-block;
   margin-left: 1rem;
+  flex-shrink: 0;
 }
 
 .todoList__done,
