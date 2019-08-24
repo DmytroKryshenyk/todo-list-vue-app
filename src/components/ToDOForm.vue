@@ -17,7 +17,9 @@
 export default {
   name: "ToDoForm",
   data() {
-    return { newItem: "" };
+    return {
+      newItem: ""
+    };
   },
   methods: {
     submited(event) {

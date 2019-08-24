@@ -1,6 +1,6 @@
 <template v-if="todo.length">
   <transition-group name="todoList__list" class="todoList__list" tag="ul">
-    <li class="todoList__item" v-for="item in todo" v-bind:key="item">
+    <li class="todoList__item" v-for="item in todo" :key="item.id">
       <span class="todoList__text" :class="{'todoList__text--done': item.done }">{{item.label}}</span>
       <form class="todoList__actions">
         <label class="todoList__done">
@@ -36,6 +36,23 @@ export default {
   margin-bottom: 1rem;
 }
 
+.todoList__list-enter {
+  opacity: 0;
+}
+
+.todoList__list-enter-active {
+  transition: opacity 0.25s linear;
+}
+
+.todoList__list-leave-active {
+  transition: opacity 0.5s linear;
+  opacity: 0;
+}
+
+.todoList__list-move {
+  transition: transform 1s linear;
+}
+
 .todoList__item {
   display: flex;
   justify-content: space-between;
@@ -45,7 +62,7 @@ export default {
   position: relative;
   z-index: 1;
 
-  &::before {
+  &::after {
     content: "";
     position: absolute;
     top: 0;
@@ -119,10 +136,6 @@ export default {
   height: 1rem;
   width: 1rem;
   background: url(../assets/trash-solid.svg) no-repeat;
-}
-
-.todoList__list-move {
-  transition: transform 1s;
 }
 </style>
 

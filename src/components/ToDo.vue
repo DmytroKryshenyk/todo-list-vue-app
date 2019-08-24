@@ -2,7 +2,7 @@
   <article class="todoList">
     <h3 class="todoList__title">To Do List</h3>
     <p class="todoList__subtitle">Things I have to get done today:</p>
-    <ToDoList :todo="todoByStatus" @removeItemEvent="removeItem" />
+    <ToDoList :todo="sortedTodo" @removeItemEvent="removeItem" />
     <p v-if="!todo.length" class="todoList__empty">Your todo list is empty.</p>
     <ToDoToggleButton v-if="todo.length" @sortButtonChanged="changeSortButtonStatus" />
     <ToDoForm @newItem="addNewTodo" />
@@ -16,18 +16,14 @@ import ToDoForm from "./ToDOForm.vue";
 
 export default {
   name: "ToDo",
-  components: {
-    ToDoList,
-    ToDoToggleButton,
-    ToDoForm
-  },
+  components: { ToDoList, ToDoToggleButton, ToDoForm },
   data() {
     return {
       todo: [
-        { label: "Meditation", done: true },
-        { label: "Wash car", done: true },
-        { label: "Learn Vue.js", done: false },
-        { label: "Buy eggs", done: false }
+        { label: "Meditation", done: true, id: "a1" },
+        { label: "Wash car", done: false, id: "a2" },
+        { label: "Learn Vue.js", done: true, id: "a3" },
+        { label: "Buy eggs", done: false, id: "a4" }
       ],
       isSortButtonActive: false
     };
@@ -41,9 +37,10 @@ export default {
     addNewTodo(newTodo) {
       const newTodoObject = {
         label: newTodo[0].toUpperCase() + newTodo.substring(1),
-        done: false
+        done: false,
+        id: "a" + Math.random().toString(36).substr(2, 9)
       };
-      this.todo.unshift(newTodoObject);
+      this.$set(this.todo, this.todo.length, newTodoObject)
     },
 
     changeSortButtonStatus(status) {
@@ -51,7 +48,7 @@ export default {
     }
   },
   computed: {
-    todoByStatus: function() {
+    sortedTodo: function() {
       if (!this.isSortButtonActive) {
         return this.todo;
       } else {
@@ -67,6 +64,7 @@ export default {
 <style lang="scss" scoped>
 .todoList {
   display: inline-block;
+  margin: auto;
   padding: $main-padding;
   padding-top: $main-top-padding;
   font-family: $main-font;

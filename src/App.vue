@@ -19,9 +19,9 @@ export default {
 #app {
   text-align: center;
   background: $brand-color-3;
-  min-height: 100vh;
   min-width: $todo-min-width;
-  padding-top: 100px;
+  min-height: 100vh;
+  padding-top: 50px;
   padding-bottom: 100px;
 }
 </style>
